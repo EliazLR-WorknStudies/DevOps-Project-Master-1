@@ -1,0 +1,13 @@
+#cloud-config
+users:
+  - name: cloud
+    passwd: $1$GwZT4duo$guq9frwju6IMrz5rBCxIH0
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4xxC6/riCzfIvzwcX4LURUzrZwtemc7t1+WXv2nmvKAIsTwgKYOUc/tr4RVTFAWWVXEqk/76LLV82b3AYdn6CcliBg5OPbwpue1zJtj/WkkMtY2cZBm1ApAwzIlcdXmSneOPJQYTY3d4IkcYEfX/4oNGVHRWMFVPu+wJnUbNXaVPlGyXe97Gd1BQZ/ap2E/RIydzbIhVZKA640UDB4qUu8xblv41Q2Oa7F5/QCunv3YJwgg/nJK1PtoUAPd7+lV0Yg84nYe/uMQvU83YMVGiLqnIYEil2+5DJbzImVQjJ3SO/f0l32fJwe0kyLQS3+W/qDroq3ns7SA64tYHe3aLzGDwrhxFXb3tE8hS8Bv7DrCsZYBWE4NVbiwBlEQiAU/QyU7AGeIKsS26PIWoFVOZzA2RbTHx1US4scIy9oTG1g3/VhRSj0yBBvKKiz0gRIkLcgnFC95GnJQcCTVfLitSSy6E4hiRuO2PzDQPpIV/b4QDltYaoOyKu/EhweLz+46tlD01RwCumFzjatqH8Dviz/ryekOhhtahiMrTLBwG/e9TTGqbvFcI/YHowvGO3slLj4dvNElGTYWtWUMDz9gZV0bPZlHotZgoL5cldS5r9vsWOu6LSb8focYNGlEe6yKmbykfBbLhbo0P1zdO0Z8mZck9D50Ctm8HC/DX12EZXGQ== eliaz@LAPTOP-ELIAZ
+packages:
+  - curl
+runcmd:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+  - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - apt-get update -y && apt-get install -y docker-ce docker-ce-cli containerd.io

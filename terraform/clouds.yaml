@@ -1,0 +1,19 @@
+
+# This is a clouds.yaml file, which can be used by OpenStack tools as a source
+# of configuration on how to connect to a cloud. If this is your only cloud,
+# just put this file in ~/.config/openstack/clouds.yaml and tools like
+# python-openstackclient will just work with no further config.
+# If you have more than one cloud account, add the cloud entry to the clouds
+# section of your existing file and you can refer to them by name with
+# OS_CLOUD=TerraformPCEliaz or --os-cloud=TerraformPCEliaz
+clouds:
+  TerraformPCEliaz:
+    auth_type: "v3applicationcredential"
+    auth:
+      auth_url: https://keystone.api.be-ys.cloud/v3
+      application_credential_id: "ebdce31cb6774a79909d5ae1dbff21aa"
+      application_credential_secret: "5wEePIQxpAIpSLVXKWXZjJg7eXKlMcx7lo3303Vf3KXqqXD4sDxDwKR4JHgvRO3PQSmpLPJjXe-3GkydWnwadQ"
+    region: RegionOne
+    interface: public
+    identity_api_version: 3
+      
