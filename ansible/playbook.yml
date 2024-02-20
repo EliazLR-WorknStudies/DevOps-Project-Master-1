@@ -1,0 +1,63 @@
+- name: Web app deployment
+  hosts: servers
+  become: false
+  any_errors_fatal: true
+  tasks:
+    - name: set nameservers
+      become: true
+      ansible.builtin.lineinfile:
+        path: "/etc/resolv.conf"
+        line: "nameserver 8.8.8.8"
+
+    - name: random command
+      ansible.builtin.command: "ls -a /home/debian"
+      register: result
+      changed_when: false
+
+    - name: debug
+      ansible.builtin.debug:
+        msg: "{{ result.stdout_lines }}"
+    - name: create list in a variable with the names of the packages
+      ansible.builtin.set_fact:
+        packages:
+          - apache2
+          - firewalld
+
+    - name: install packages
+      become: true
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"
+
+    - name: boot services
+      become: true
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop: "{{ app_services }}"
+
+    - name: open port 80
+      become: true
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
+
+    - name: health check
+      uri:
+        url: "http://localhost/"
+        return_content: true
+      register: result
+      until: result.status == 200
+      retries: 12
+      delay: 5
+
+    - name: create user
+      become: true
+      ansible.builtin.user:
+        name: "eliaz"
+        group: "sudo"
+        password: "{{ secret_user_password | password_hash('sha512') }}"
