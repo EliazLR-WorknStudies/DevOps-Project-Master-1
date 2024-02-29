@@ -2,6 +2,8 @@
   hosts: servers
   become: false
   any_errors_fatal: true
+  vars_files:
+    - "{{ playbook_dir }}/vars/vars_app.yml"
   tasks:
     - name: set nameservers
       become: true
