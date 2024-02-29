@@ -1,12 +1,3 @@
-app_directory: /var/www/html
-
-app_name: myapp
-app_movies:
-  - title: The Shawshank Redemption
-    director: Frank Darabont
-  - title: The Godfather
-    director: Francis Ford Coppola
-
 app_services:
   - apache2
   - firewalld

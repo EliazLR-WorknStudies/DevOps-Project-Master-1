@@ -11,14 +11,6 @@
         path: "/etc/resolv.conf"
         line: "nameserver 8.8.8.8"
 
-    - name: random command
-      ansible.builtin.command: "ls -a /home/debian"
-      register: result
-      changed_when: false
-
-    - name: debug
-      ansible.builtin.debug:
-        msg: "{{ result.stdout_lines }}"
     - name: create list in a variable with the names of the packages
       ansible.builtin.set_fact:
         packages:
@@ -56,10 +48,3 @@
       until: result.status == 200
       retries: 12
       delay: 5
-
-    - name: create user
-      become: true
-      ansible.builtin.user:
-        name: "eliaz"
-        group: "sudo"
-        password: "{{ secret_user_password | password_hash('sha512') }}"
