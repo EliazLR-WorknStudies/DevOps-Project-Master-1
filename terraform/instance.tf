@@ -27,7 +27,11 @@ resource "openstack_compute_floatingip_associate_v2" "fip_1" {
   instance_id = openstack_compute_instance_v2.instance.id
 }
 
+locals {
+  external_ip = "185.34.141.${split(".", openstack_networking_floatingip_v2.fip_1.address)[3]}"
+}
+
 resource "local_file" "ansible_inventory" {
-  content  = "[servers]\n185.34.141.${split(".", openstack_networking_floatingip_v2.fip_1.address)[3]}"
+  content  = "[servers]\n${local.external_ip}"
   filename = "${path.module}/../ansible/inventories/dev/hosts"
 }

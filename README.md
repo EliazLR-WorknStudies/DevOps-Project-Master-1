@@ -15,4 +15,8 @@
 - ./app
 - Le serveur démarre sur port 8000.
 
+terraform init
+terraform apply
+terraform destroy
+
 ansible-playbook -u cloud -i inventories/dev/hosts --private-key ~/.ssh/id_rsa playbook.yml
