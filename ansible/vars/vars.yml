@@ -14,3 +14,13 @@ docker_images:
   - "mariadb:latest"
   - "nextcloud:latest"
   - "wordpress:latest"
+
+mariadb_root_password: "root"
+
+openstack_dir: "/dev/vdb"
+mount_dir: "/mnt/volume"
+volume_name: "volume"
+
+mariadb_names:
+  - "alpha"
+  - "beta"

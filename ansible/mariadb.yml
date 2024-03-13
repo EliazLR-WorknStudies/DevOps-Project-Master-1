@@ -1,0 +1,18 @@
+- name: Deploy the MariaDB container
+  ansible.builtin.docker_container:
+    name: mariadb
+    image: mariadb:latest
+    env:
+      MYSQL_ROOT_PASSWORD: "{{ mariadb_root_password }}"
+    ports:
+      - "3306:3306"
+    volumes:
+      - "/{{ volume_name }}:/mariaDB"
+    state: started
+  become: true
+
+- name: Add a database to the MariaDB container
+  ansible.builtin.mysql_db:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ mariadb_names }}"

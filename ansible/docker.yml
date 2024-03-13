@@ -3,7 +3,7 @@
   become: false
   any_errors_fatal: true
   vars_files:
-    - "{{ playbook_dir }}/vars/vars_docker.yml"
+    - "{{ playbook_dir }}/vars/vars.yml"
   tasks:
     - name: set nameservers
       become: true
@@ -56,8 +56,12 @@
       become: true
 
     - name: pull the images
-      become: true
       ansible.builtin.docker_image:
         name: "{{ item }}"
         source: pull
       loop: "{{ docker_images }}"
+      become: true
+
+    - include_tasks: volume.yml
+
+    - include_tasks: mariadb.yml

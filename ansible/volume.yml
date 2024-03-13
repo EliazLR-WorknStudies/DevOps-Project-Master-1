@@ -1,0 +1,21 @@
+- name: format openstack volume
+  ansible.builtin.filesystem:
+    fstype: ext4
+    dev: "{{ openstack_dir }}"
+  become: true
+
+- name: mount openstack volume
+  ansible.builtin.mount:
+    path: "{{ mount_dir }}"
+    src: "{{ openstack_dir }}"
+    fstype: ext4
+    state: mounted
+  become: true
+
+- name: docker volume create
+  ansible.builtin.docker_volume:
+    name: "{{ volume_name }}"
+    driver_options:
+      type: btrfs
+      device: "{{ mount_dir }}"
+  become: true
