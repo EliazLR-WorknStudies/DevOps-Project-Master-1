@@ -1,3 +1,9 @@
+- name: Copy the traefik configuration file
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/files/traefik.yml"
+    dest: "./traefik.yml"
+  become: true
+
 - name: Start the traefik container
   ansible.builtin.docker_container:
     name: traefik
@@ -7,17 +13,10 @@
       - "8080:8080"
       - "443:443"
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./traefik.yml:/etc/traefik/traefik.yml"
+      - "./traefik/acme.json:/acme.json"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
     command: --api.insecure=true --providers.docker
     restart_policy: always
     state: started
-  become: true
-
-- name: Start the test traefik container
-  ansible.builtin.docker_container:
-    name: test
-    image: traefik/whoami
-    restart_policy: always
-    state: started
-    labels: traefik.http.routers.whoami.rule="Host(`whoami.docker.localhost`)"
   become: true

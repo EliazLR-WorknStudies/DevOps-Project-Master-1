@@ -28,3 +28,5 @@ volume_names:
 mariadb_names:
   - "alpha"
   - "beta"
+
+domain_name: "eliaz.uca-devops.ovh"

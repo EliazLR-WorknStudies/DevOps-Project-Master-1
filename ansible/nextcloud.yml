@@ -12,9 +12,8 @@
     restart_policy: always
     state: started
     labels: traefik.enable="true"
-      traefik.http.routers.nextcloud.rule="PathPrefix(`/nextcloud`)"
-      traefik.http.routers.nextcloud.entrypoints="web"
-      traefik.http.routers.nextcloud.middlewares="nextcloud-stripprefix"
-      traefik.http.middlewares.nextcloud-stripprefix.stripprefix.prefixes="/nextcloud"
+      traefik.http.routers.nextcloud.rule="Host(`nextcloud.{{ domain_name }}`)"
+      traefik.http.routers.nextcloud.entrypoints="insecure"
+
   become: true
   tags: nextcloud
