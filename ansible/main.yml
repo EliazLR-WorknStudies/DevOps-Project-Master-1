@@ -1,0 +1,24 @@
+- name: DOING EVERYTHING FOR THE TP
+  hosts: servers
+  become: false
+  any_errors_fatal: true
+  vars_files:
+    - "{{ playbook_dir }}/vars/vars.yml"
+  tasks:
+    - name: set nameservers
+      become: true
+      ansible.builtin.lineinfile:
+        path: "/etc/resolv.conf"
+        line: "nameserver 8.8.8.8"
+
+    - include_tasks: docker.yml
+
+    - include_tasks: volume.yml
+
+    - include_tasks: mariadb.yml
+
+    - include_tasks: traefik_playbook.yml
+
+    - include_tasks: nextcloud.yml
+
+    # - include_tasks: wordpress.yml

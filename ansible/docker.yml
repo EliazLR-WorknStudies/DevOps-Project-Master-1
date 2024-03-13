@@ -1,73 +1,50 @@
-- name: Setting up Docker and deploying containers for the services we want
-  hosts: servers
-  become: false
-  any_errors_fatal: true
-  vars_files:
-    - "{{ playbook_dir }}/vars/vars.yml"
-  tasks:
-    - name: set nameservers
-      become: true
-      ansible.builtin.lineinfile:
-        path: "/etc/resolv.conf"
-        line: "nameserver 8.8.8.8"
+- name: Ensure old versions of Docker are not installed.
+  package:
+    name:
+      - docker
+      - docker.io
+      - docker-engine
+    state: absent
+  become: true
 
-    - name: Ensure old versions of Docker are not installed.
-      package:
-        name:
-          - docker
-          - docker.io
-          - docker-engine
-        state: absent
-      become: true
+- name: Install Docker dependencies
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ docker_dependencies }}"
+  become: true
 
-    - name: Install Docker dependencies
-      ansible.builtin.package:
-        name: "{{ item }}"
-        state: present
-      loop: "{{ docker_dependencies }}"
-      become: true
+- name: Add Docker GPG key for apt
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+    state: present
+  when: ansible_distribution in ["Ubuntu", "Debian"]
+  become: true
 
-    - name: Add Docker GPG key for apt
-      ansible.builtin.apt_key:
-        url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
-        state: present
-      when: ansible_distribution in ["Ubuntu", "Debian"]
-      become: true
+- name: Add Docker repository for apt
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
+    state: present
+  when: ansible_distribution in ["Ubuntu", "Debian"]
+  become: true
 
-    - name: Add Docker repository for apt
-      ansible.builtin.apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
-        state: present
-      when: ansible_distribution in ["Ubuntu", "Debian"]
-      become: true
+- name: Install docker
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ docker_packages }}"
+  become: true
 
-    - name: Install docker
-      ansible.builtin.package:
-        name: "{{ item }}"
-        state: present
-      loop: "{{ docker_packages }}"
-      become: true
+- name: Enable Docker service
+  ansible.builtin.service:
+    name: docker
+    enabled: true
+    state: started
+  become: true
 
-    - name: Enable Docker service
-      ansible.builtin.service:
-        name: docker
-        enabled: true
-        state: started
-      become: true
-
-    - name: pull the images
-      ansible.builtin.docker_image:
-        name: "{{ item }}"
-        source: pull
-      loop: "{{ docker_images }}"
-      become: true
-
-    # - include_tasks: volume.yml
-
-    # - include_tasks: mariadb.yml
-
-    # - include_tasks: traefik_playbook.yml
-
-    - include_tasks: nextcloud.yml
-
-    # - include_tasks: wordpress.yml
+- name: pull the images
+  ansible.builtin.docker_image:
+    name: "{{ item }}"
+    source: pull
+  loop: "{{ docker_images }}"
+  become: true

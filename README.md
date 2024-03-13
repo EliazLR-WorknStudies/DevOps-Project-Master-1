@@ -19,4 +19,4 @@ terraform init
 terraform apply
 terraform destroy
 
-ansible-playbook -u cloud -i inventories/dev/hosts --private-key ~/.ssh/id_rsa docker.yml
+ansible-playbook -u cloud -i inventories/dev/hosts --private-key ~/.ssh/id_rsa main.yml
