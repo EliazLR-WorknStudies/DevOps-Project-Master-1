@@ -1,1 +1,18 @@
-- name:
+- name: Start the Wordpress container
+  ansible.builtin.docker_container:
+    name: wordpress
+    image: wordpress:latest
+    volumes:
+      - "/{{ volume_names[2] }}:/var/www/html"
+    env:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_USER: "{{ mariadb_names[1] }}"
+      WORDPRESS_DB_PASSWORD: "{{ mariadb_root_password }}"
+      WORDPRESS_DB_NAME: "{{ mariadb_names[1] }}"
+    restart_policy: always
+    state: started
+    labels: traefik.enable="true"
+      traefik.http.routers.wordpress.rule="Host(`wordpress.{{ domain_name }}`)"
+      traefik.http.routers.wordpress.entrypoints="insecure"
+  become: true
+  tags: wordpress
