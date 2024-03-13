@@ -7,7 +7,7 @@
     ports:
       - "3306:3306"
     volumes:
-      - "/{{ volume_name }}:/mariaDB"
+      - "/{{ volume_names[0] }}:/mariaDB"
     state: started
   become: true
 

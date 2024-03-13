@@ -14,8 +14,9 @@
 
 - name: docker volume create
   ansible.builtin.docker_volume:
-    name: "{{ volume_name }}"
+    name: "{{ item }}"
     driver_options:
       type: btrfs
-      device: "{{ mount_dir }}"
+      device: "{{ mount_dir }}/{{ item }}"
   become: true
+  loop: "{{ volume_names }}"

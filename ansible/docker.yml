@@ -62,6 +62,12 @@
       loop: "{{ docker_images }}"
       become: true
 
-    - include_tasks: volume.yml
+    # - include_tasks: volume.yml
 
-    - include_tasks: mariadb.yml
+    # - include_tasks: mariadb.yml
+
+    # - include_tasks: traefik_playbook.yml
+
+    - include_tasks: nextcloud.yml
+
+    # - include_tasks: wordpress.yml

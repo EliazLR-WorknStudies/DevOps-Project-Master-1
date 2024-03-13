@@ -1,0 +1,20 @@
+- name: Start the Nextcloud container
+  ansible.builtin.docker_container:
+    name: nextcloud
+    image: nextcloud
+    volumes:
+      - "/{{ volume_names[1] }}:/var/www/html"
+    env:
+      MYSQL_HOST: mariadb
+      MYSQL_DATABASE: "{{ mariadb_names[0] }}"
+      MYSQL_USER: "{{ mariadb_names[0] }}"
+      MYSQL_PASSWORD: "{{ mariadb_root_password }}"
+    restart_policy: always
+    state: started
+    labels: traefik.enable="true"
+      traefik.http.routers.nextcloud.rule="PathPrefix(`/nextcloud`)"
+      traefik.http.routers.nextcloud.entrypoints="web"
+      traefik.http.routers.nextcloud.middlewares="nextcloud-stripprefix"
+      traefik.http.middlewares.nextcloud-stripprefix.stripprefix.prefixes="/nextcloud"
+  become: true
+  tags: nextcloud

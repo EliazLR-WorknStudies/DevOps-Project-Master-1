@@ -1,0 +1,27 @@
+- name: Copy the traefik configuration file
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/files/traefik.yml"
+    dest: "./traefik.yml"
+  become: true
+
+- name: Start the traefik container
+  ansible.builtin.docker_container:
+    name: traefik
+    image: traefik
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "./traefik.yml:/etc/traefik/traefik.yml"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    restart_policy: always
+    state: started
+  become: true
+
+- name: Start the test traefik container
+  ansible.builtin.docker_container:
+    name: test
+    image: traefik/whoami
+    restart_policy: always
+    state: started
+  become: true
