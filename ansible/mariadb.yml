@@ -7,8 +7,9 @@
     ports:
       - "3306:3306"
     volumes:
-      - "/{{ volume_names[0] }}:/mariaDB"
+      - "/{{ volume_names[0] }}:/var/lib/mysql"
     state: started
+    restart_policy: always
   become: true
 
 - name: install pip3
@@ -34,7 +35,7 @@
 - name: Add a user to the MariaDB container
   ansible.builtin.mysql_user:
     name: "{{ item }}"
-    password: "{{ mariadb_root_password }}"
+    password: ""
     priv: "*.*:ALL"
     state: present
     login_user: root

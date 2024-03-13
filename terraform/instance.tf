@@ -7,7 +7,7 @@ data "openstack_images_image_v2" "deb" {
 resource "openstack_compute_instance_v2" "instance" {
   name            = "instance-1"
   image_id        = data.openstack_images_image_v2.deb.id
-  flavor_name       = "v2.m4.d10"
+  flavor_name       = "v4.m8.d10"
   security_groups = ["default"]
   user_data = file("./conf.yml")
   
