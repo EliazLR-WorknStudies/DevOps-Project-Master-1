@@ -5,10 +5,10 @@
     volumes:
       - "/{{ volume_names[2] }}:/var/www/html"
     env:
-      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_HOST: MariaDB
+      WORDPRESS_DB_NAME: "{{ mariadb_names[1] }}"
       WORDPRESS_DB_USER: "{{ mariadb_names[1] }}"
       WORDPRESS_DB_PASSWORD: ""
-      WORDPRESS_DB_NAME: "{{ mariadb_names[1] }}"
     restart_policy: always
     state: started
     labels: traefik.enable="true"

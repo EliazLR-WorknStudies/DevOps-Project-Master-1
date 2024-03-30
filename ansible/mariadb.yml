@@ -24,7 +24,7 @@
     state: present
   become: true
 
-- name: Add a database to the MariaDB container
+- name: Add databases to the MariaDB container
   ansible.builtin.mysql_db:
     name: "{{ item }}"
     state: present
@@ -32,7 +32,7 @@
     login_password: "{{ mariadb_root_password }}"
   loop: "{{ mariadb_names }}"
 
-- name: Add a user to the MariaDB container
+- name: Add users to the MariaDB container
   ansible.builtin.mysql_user:
     name: "{{ item }}"
     password: ""

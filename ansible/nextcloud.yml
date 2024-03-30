@@ -5,7 +5,7 @@
     volumes:
       - "/{{ volume_names[1] }}:/var/www/html"
     env:
-      MYSQL_HOST: mariadb
+      MYSQL_HOST: MariaDB
       MYSQL_DATABASE: "{{ mariadb_names[0] }}"
       MYSQL_USER: "{{ mariadb_names[0] }}"
       MYSQL_PASSWORD: ""
