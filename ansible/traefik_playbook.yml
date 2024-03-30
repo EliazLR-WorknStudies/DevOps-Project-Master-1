@@ -4,19 +4,24 @@
     dest: "./traefik.yml"
   become: true
 
+- name: Copy the traefik acme file
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/files/acme.json"
+    dest: "./traefik/acme.json"
+  become: true
+
 - name: Start the traefik container
   ansible.builtin.docker_container:
     name: traefik
     image: traefik
     ports:
       - "80:80"
-      - "8080:8080"
       - "443:443"
     volumes:
       - "./traefik.yml:/etc/traefik/traefik.yml"
       - "./traefik/acme.json:/acme.json"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    command: --api.insecure=true --providers.docker
+    command: --providers.docker
     restart_policy: always
     state: started
   become: true

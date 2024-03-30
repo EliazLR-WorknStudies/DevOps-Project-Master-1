@@ -20,3 +20,10 @@ terraform apply
 terraform destroy
 
 ansible-playbook -u cloud -i inventories/dev/hosts --private-key ~/.ssh/id_rsa main.yml
+
+## Fonctionnalités :
+
+Deploie :
+
+- Nextcloud à l'adresse : https://nextcloud.eliaz.uca-devops.ovh/
+- Wordpress à l'adresse : https://wordpress.eliaz.uca-devops.ovh/
