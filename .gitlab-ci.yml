@@ -6,8 +6,9 @@ build:
   image: golang
   stage: build
   script:
+    - cd go_app
     - go mod download
-    - go build -o ./app ./go_app/cmd
+    - go build -o ./app ./cmd
   artifacts:
     paths:
       - build/libs/app
