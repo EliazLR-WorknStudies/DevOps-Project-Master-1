@@ -14,7 +14,7 @@ build:
     - go build -o $OUTPUT_NAME ./cmd
   artifacts:
     paths:
-      - $OUTPUT_NAME
+      - "go_app/$OUTPUT_NAME"
     expire_in: 1 week
 deploy:
   image: debian:bullseye
