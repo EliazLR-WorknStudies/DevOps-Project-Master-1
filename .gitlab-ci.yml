@@ -1,17 +1,20 @@
+variables:
+  OUTPUT_NAME: "app"
+
 stages:
   - build
   - deploy
 
 build:
-  image: golang
+  image: golang:latest
   stage: build
   script:
     - cd go_app
     - go mod download
-    - go build -o ./app ./cmd
+    - go build -o $OUTPUT_NAME ./cmd
   artifacts:
     paths:
-      - build/libs/app
+      - $OUTPUT_NAME
     expire_in: 1 week
 deploy:
   image: debian:bullseye
