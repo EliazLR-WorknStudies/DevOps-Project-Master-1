@@ -9,7 +9,7 @@ echo "VAULT TOKEN: $VAULT_TOKEN"
 
 
 
-REGISTRY_USERNAME=$(curl --header "X-Vault-Token: $VAULT_TOKEN"  --request GET https://127.0.0.1:8200/v1/gitlab/data/public/registry/username)
+REGISTRY_USERNAME=$(curl -s -k --header "X-Vault-Token: $VAULT_TOKEN"  --request GET https://vault.edu.forestier.re/v1/gitlab/data/public/registry/username)
 REGISTRY_PASSWORD=$(curl -s -X GET -k --header "X-Vault-Token: $VAULT_TOKEN" "https://vault.edu.forestier.re/v1/gitlab/data/registry/password")
 
 echo "Secrets retrieved from Vault"
