@@ -6,7 +6,10 @@ echo "VAULT TOKEN: $VAULT_TOKEN"
 
 # Retrieve a Vault secret and store it in a variable. here, chagne {ENGINE} and {PATH} to fit your needs
 # Example : https://vault.edu.forestier.re/v1/home/data/fforestier/test
-REGISTRY_USERNAME=$(curl -s -X GET -k --header "X-Vault-Token: $VAULT_TOKEN" "https://vault.edu.forestier.re/v1/gitlab/data/registry/username")
+
+
+
+REGISTRY_USERNAME=$(curl --header "X-Vault-Token: $VAULT_TOKEN"  --request GET https://127.0.0.1:8200/v1/gitlab/data/public/registry/username)
 REGISTRY_PASSWORD=$(curl -s -X GET -k --header "X-Vault-Token: $VAULT_TOKEN" "https://vault.edu.forestier.re/v1/gitlab/data/registry/password")
 
 echo "Secrets retrieved from Vault"
