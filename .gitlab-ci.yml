@@ -5,7 +5,7 @@ stages:
   - build
   - deploy
 
-build:
+build_go_app:
   image: golang:latest
   stage: build
   script:
@@ -16,9 +16,13 @@ build:
     paths:
       - "go_app/$OUTPUT_NAME"
     expire_in: 1 week
+
 deploy:
-  image: debian:bullseye
+  image: docker:latest
   stage: deploy
+  before_script:
+    - . ./init.sh
+    - echo $USERNAME $PASSWORD
+    - docker login docker-registry.edu.forestier.re -u $USERNAME -p $PASSWORD
   script:
-    - ls -lsa build/libs/app
-  when: manual
+    - docker build -t docker-registry.edu.forestier.re/elleriche/$OUTPUT_NAME .
