@@ -1,6 +1,9 @@
 # Login to Vault using token (do not change this line)
 VAULT_TOKEN=$(curl -s -X POST -k --data "{\"token\":\"$CI_JOB_TOKEN\"}" "https://vault.edu.forestier.re/v1/auth/gitlab/ci" | python3 jq.py "auth/client_token")
 
+echo "Vault token retrieved"
+echo "VAULT TOKEN: $VAULT_TOKEN"
+
 # Retrieve a Vault secret and store it in a variable. here, chagne {ENGINE} and {PATH} to fit your needs
 # Example : https://vault.edu.forestier.re/v1/home/data/fforestier/test
 REGISTRY_USERNAME=$(curl -s -X GET -k --header "X-Vault-Token: $VAULT_TOKEN" "https://vault.edu.forestier.re/v1/gitlab/data/registry/username")
