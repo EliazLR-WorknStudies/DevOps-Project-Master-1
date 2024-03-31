@@ -7,6 +7,6 @@ REGISTRY_USERNAME=$(curl -s -X GET -k --header "X-Vault-Token: $VAULT_TOKEN" "ht
 REGISTRY_PASSWORD=$(curl -s -X GET -k --header "X-Vault-Token: $VAULT_TOKEN" "https://vault.edu.forestier.re/v1/gitlab/data/registry/password")
 
 # Here, export value "A" of our secret to "A" in our environment (change "A" to your needs...)
-export USERNAME=$(echo "$REGISTRY_USERNAME")
-export PASSWORD=$(echo "$REGISTRY_PASSWORD")
+export USERNAME=$(echo "$REGISTRY_USERNAME" | python3 jq.py "data/USERNAME")
+export PASSWORD=$(echo "$REGISTRY_PASSWORD" | python3 jq.py "data/PASSWORD")
 
