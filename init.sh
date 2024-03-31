@@ -6,6 +6,10 @@ VAULT_TOKEN=$(curl -s -X POST -k --data "{\"token\":\"$CI_JOB_TOKEN\"}" "https:/
 REGISTRY_USERNAME=$(curl -s -X GET -k --header "X-Vault-Token: $VAULT_TOKEN" "https://vault.edu.forestier.re/v1/gitlab/data/registry/username")
 REGISTRY_PASSWORD=$(curl -s -X GET -k --header "X-Vault-Token: $VAULT_TOKEN" "https://vault.edu.forestier.re/v1/gitlab/data/registry/password")
 
+echo "Secrets retrieved from Vault"
+echo "REGISTRY_USERNAME: $REGISTRY_USERNAME"
+echo "REGISTRY_PASSWORD: $REGISTRY_PASSWORD"
+
 # Here, export value "A" of our secret to "A" in our environment (change "A" to your needs...)
 export USERNAME=$(echo "$REGISTRY_USERNAME")
 export PASSWORD=$(echo "$REGISTRY_PASSWORD")
