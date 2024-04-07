@@ -2,20 +2,20 @@ variables:
   OUTPUT_NAME: "app"
 
 stages:
-  # - build
+  - build
   - deploy
 
-# build_go_app:
-#   image: golang:latest
-#   stage: build
-#   script:
-#     - cd go_app
-#     - go mod download
-#     - go build -o $OUTPUT_NAME ./cmd
-#   artifacts:
-#     paths:
-#       - "go_app/$OUTPUT_NAME"
-#     expire_in: 1 week
+build_go_app:
+  image: golang:latest
+  stage: build
+  script:
+    - cd go_app
+    - go mod download
+    - go build -o $OUTPUT_NAME ./cmd
+  artifacts:
+    paths:
+      - "go_app/$OUTPUT_NAME"
+    expire_in: 1 week
 
 deploy:
   image: docker:latest
@@ -28,4 +28,5 @@ deploy:
     - docker login docker-registry.edu.forestier.re -u $USERNAME -p $PASSWORD
   script:
     - cd go_app
-    - docker build -t docker-registry.edu.forestier.re/elleriche/$OUTPUT_NAME .
+    - ls
+    - docker push docker-registry.edu.forestier.re/elleriche/$OUTPUT_NAME:latest
