@@ -27,4 +27,5 @@ deploy:
     - echo $USERNAME $PASSWORD
     - docker login docker-registry.edu.forestier.re -u $USERNAME -p $PASSWORD
   script:
+    - ls
     - docker build -t docker-registry.edu.forestier.re/elleriche/$OUTPUT_NAME .
