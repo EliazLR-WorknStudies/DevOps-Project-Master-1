@@ -6,6 +6,6 @@ REGISTRY=$(curl -s -k --header "X-Vault-Token: $VAULT_TOKEN"  --request GET http
 
 
 # Here, export value "A" of our secret to "A" in our environment (change "A" to your needs...)
-export USERNAME=$(echo "$REGISTRY" | jq -r 'data/data/username')
-export PASSWORD=$(echo "$REGISTRY" | jq -r '.data/data/password')
+export USERNAME=$(echo "$REGISTRY" | python3 jq.py "data/data/username")
+export PASSWORD=$(echo "$REGISTRY" | python3 jq.py "data/data/password")
 
