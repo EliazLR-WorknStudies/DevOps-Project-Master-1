@@ -14,7 +14,7 @@ build_go_app:
     - go build -o $OUTPUT_NAME ./cmd
   artifacts:
     paths:
-      - "go_app/$OUTPUT_NAME"
+      - "go_app"
     expire_in: 1 week
 
 deploy:
@@ -29,5 +29,5 @@ deploy:
   script:
     - cd go_app
     - ls
-    - docker image tag $OUTPUT_NAME docker-registry.edu.forestier.re/elleriche/$OUTPUT_NAME:latest
-    - docker push docker-registry.edu.forestier.re/elleriche/$OUTPUT_NAME:latest
+    - docker build -t docker-registry.edu.forestier.re/$USERNAME/$OUTPUT_NAME .
+    - docker push docker-registry.edu.forestier.re/$USERNAME/$OUTPUT_NAME
