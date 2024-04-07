@@ -29,5 +29,5 @@ deploy:
   script:
     - cd go_app
     - ls
-    - docker build -t docker-registry.edu.forestier.re/$USERNAME/$OUTPUT_NAME .
-    - docker push docker-registry.edu.forestier.re/$USERNAME/$OUTPUT_NAME
+    - docker build -t "docker-registry.edu.forestier.re/$USERNAME/$OUTPUT_NAME:latest" .
+    - docker push "docker-registry.edu.forestier.re/$USERNAME/$OUTPUT_NAME:latest"

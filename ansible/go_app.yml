@@ -1,0 +1,16 @@
+- name: Pull the Go app container image from the registry and start the container
+  ansible.builtin.docker_container:
+    name: go_app
+    image: docker-registry.edu.forestier.re/elleriche/app:latest
+    state: present
+    restart_policy: always
+    ports:
+      - "8080:8080"
+    labels: traefik.enable="true"
+      traefik.http.routers.go_app.rule="Host(`go_app.eliaz.uca-devops.ovh`)"
+      traefik.http.routers.go_app.entrypoints="secure"
+      traefik.http.services.go_app.loadbalancer.server.port=8080
+      traefik.http.routers.go_app.tls=true
+      traefik.http.routers.go_app.tls.certresolver="letsencrypt"
+  become: true
+  tags: go_app
