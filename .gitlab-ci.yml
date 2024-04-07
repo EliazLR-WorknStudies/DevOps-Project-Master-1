@@ -5,17 +5,17 @@ stages:
   # - build
   - deploy
 
-build_go_app:
-  image: golang:latest
-  stage: build
-  script:
-    - cd go_app
-    - go mod download
-    - go build -o $OUTPUT_NAME ./cmd
-  artifacts:
-    paths:
-      - "go_app/$OUTPUT_NAME"
-    expire_in: 1 week
+# build_go_app:
+#   image: golang:latest
+#   stage: build
+#   script:
+#     - cd go_app
+#     - go mod download
+#     - go build -o $OUTPUT_NAME ./cmd
+#   artifacts:
+#     paths:
+#       - "go_app/$OUTPUT_NAME"
+#     expire_in: 1 week
 
 deploy:
   image: docker:latest
