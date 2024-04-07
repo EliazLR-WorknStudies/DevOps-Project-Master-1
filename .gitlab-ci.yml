@@ -29,4 +29,5 @@ deploy:
   script:
     - cd go_app
     - ls
+    - docker image tag $OUTPUT_NAME docker-registry.edu.forestier.re/elleriche/$OUTPUT_NAME:latest
     - docker push docker-registry.edu.forestier.re/elleriche/$OUTPUT_NAME:latest
