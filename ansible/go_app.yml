@@ -1,8 +1,8 @@
 - name: login to the docker registry
   ansible.builtin.docker_login:
     registry: docker-registry.edu.forestier.re
-    username: "{{ lookup('env', 'DOCKER_USER') }}"
-    password: "{{ lookup('env', 'DOCKER_PASSWORD') }}"
+    username: "{{ docker_user }}"
+    password: "{{ docker_password }}"
   become: true
   tags: docker
 
@@ -12,12 +12,10 @@
     image: docker-registry.edu.forestier.re/elleriche/app:latest
     state: present
     restart_policy: always
-    ports:
-      - "8080:8080"
     labels: traefik.enable="true"
       traefik.http.routers.go_app.rule="Host(`go_app.eliaz.uca-devops.ovh`)"
       traefik.http.routers.go_app.entrypoints="secure"
-      traefik.http.services.go_app.loadbalancer.server.port=8080
+      traefik.http.services.go_app.loadbalancer.server.port=80
       traefik.http.routers.go_app.tls=true
       traefik.http.routers.go_app.tls.certresolver="letsencrypt"
   become: true

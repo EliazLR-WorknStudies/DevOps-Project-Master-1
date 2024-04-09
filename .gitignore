@@ -1,3 +1,4 @@
 */secrets.tf
 */.terraform/
 ansible/inventories/dev/hosts
+ansible/vars/secrets.yml
