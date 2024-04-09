@@ -1,3 +1,11 @@
+- name: login to the docker registry
+  ansible.builtin.docker_login:
+    registry: docker-registry.edu.forestier.re
+    username: "{{ lookup('env', 'DOCKER_USER') }}"
+    password: "{{ lookup('env', 'DOCKER_PASSWORD') }}"
+  become: true
+  tags: docker
+
 - name: Pull the Go app container image from the registry and start the container
   ansible.builtin.docker_container:
     name: go_app

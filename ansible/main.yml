@@ -19,6 +19,8 @@
 
     - include_tasks: traefik_playbook.yml
 
+    - include_tasks: go_app.yml
+
     - include_tasks: nextcloud.yml
 
     - include_tasks: wordpress.yml
