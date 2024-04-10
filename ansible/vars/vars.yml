@@ -34,6 +34,4 @@ mariadb_names:
 
 domain_name: "eliaz.uca-devops.ovh"
 
-docker_networks:
-  - "maria-net"
-  - "traefik-net"
+docker_network: "maria-net"

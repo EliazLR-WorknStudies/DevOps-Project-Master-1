@@ -12,19 +12,19 @@
         path: "/etc/resolv.conf"
         line: "nameserver 8.8.8.8"
 
-    - include_tasks: docker.yml
+    # - include_tasks: docker.yml
 
-    - include_tasks: volume.yml
+    # - include_tasks: volume.yml
 
-    - include_tasks: mariadb.yml
+    # - include_tasks: mariadb.yml
 
-    - include_tasks: traefik_playbook.yml
+    # - include_tasks: traefik_playbook.yml
 
-    - include_tasks: go_app.yml
+    # - include_tasks: go_app.yml
 
-    - include_tasks: nextcloud.yml
+    # - include_tasks: nextcloud.yml
 
-    - include_tasks: wordpress.yml
+    # - include_tasks: wordpress.yml
 
     - include_tasks: prometheus_playbook.yml
 

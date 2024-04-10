@@ -51,7 +51,6 @@
 
 - name: create a network
   ansible.builtin.docker_network:
-    name: "{{ item }}"
+    name: "{{ docker_network }}"
     state: present
-  loop: "{{ docker_networks }}"
   become: true

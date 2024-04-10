@@ -5,8 +5,7 @@
     volumes:
       - "/{{ volume_names[1] }}:/var/www/html"
     networks:
-      - name: "{{ docker_networks[0] }}"
-      - name: "{{ docker_networks[1] }}"
+      - name: "{{ docker_network }}"
     env:
       MYSQL_HOST: MariaDB
       MYSQL_DATABASE: "{{ mariadb_names[0] }}"

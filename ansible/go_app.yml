@@ -15,11 +15,11 @@
     ports:
       - "8000:8000"
     networks:
-      - name: "{{ docker_networks[1] }}"
+      - name: "{{ docker_network }}"
     labels: traefik.enable="true"
       traefik.http.routers.go_app.rule="Host(`go_app.{{ domain_name }}`)"
-      traefik.http.routers.go_app.entrypoints="secure"
       traefik.http.services.go_app.loadbalancer.server.port=8000
+      traefik.http.routers.go_app.entrypoints="secure"
       traefik.http.routers.go_app.tls=true
       traefik.http.routers.go_app.tls.certresolver="letsencrypt"
   become: true

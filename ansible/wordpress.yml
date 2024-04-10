@@ -5,8 +5,7 @@
     volumes:
       - "/{{ volume_names[2] }}:/var/www/html"
     networks:
-      - name: "{{ docker_networks[0] }}"
-      - name: "{{ docker_networks[1] }}"
+      - name: "{{ docker_network }}"
     env:
       WORDPRESS_DB_HOST: MariaDB
       WORDPRESS_DB_NAME: "{{ mariadb_names[1] }}"
