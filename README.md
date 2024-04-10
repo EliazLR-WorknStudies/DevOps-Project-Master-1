@@ -29,3 +29,8 @@ Deploie :
 - Le serv Go à l'adresse : https://go_app.eliaz.uca-devops.ovh/
 - Prometheus à l'adresse : https://prometheus.eliaz.uca-devops.ovh/
 - Grafana à l'adresse : https://grafana.eliaz.uca-devops.ovh/
+
+## Conclusion :
+
+Temps passé sur le projet :
+[![wakatime](https://wakatime.com/badge/user/daf0cfff-7431-487e-b036-5476747df82f/project/018dc6cf-5a3b-4b11-bfe7-17def5bd8de2.svg)](https://wakatime.com/badge/user/daf0cfff-7431-487e-b036-5476747df82f/project/018dc6cf-5a3b-4b11-bfe7-17def5bd8de2)
