@@ -25,3 +25,7 @@
     - include_tasks: nextcloud.yml
 
     - include_tasks: wordpress.yml
+
+    - include_tasks: prometheus_playbook.yml
+
+    - include_tasks: grafana.yml

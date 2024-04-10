@@ -1,0 +1,39 @@
+- name: Copy the Prometheus configuration file
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/files/prometheus.yml"
+    dest: "./prometheus.yml"
+  become: true
+
+- name: Start the Node Exporter
+  ansible.builtin.docker_container:
+    name: node_exporter
+    image: "quay.io/prometheus/node-exporter:latest"
+    volumes:
+      - "/:/host:ro,rslave"
+    command: "--path.rootfs=/host"
+    network_mode: host
+    pid_mode: host
+    restart_policy: always
+    state: started
+  become: true
+  tags: prometheus
+
+- name: Start the Prometheus container
+  ansible.builtin.docker_container:
+    name: prometheus
+    image: "prom/prometheus:latest"
+    ports:
+      - "9090:9090"
+    volumes:
+      - "./prometheus.yml:/etc/prometheus/prometheus.yml"
+    command: --storage.tsdb.path=/prometheus
+    restart_policy: always
+    state: started
+    labels: traefik.enable="true"
+      traefik.http.routers.prometheus.rule="Host(`prometheus.{{ domain_name }}`)"
+      traefik.http.routers.prometheus.entrypoints="secure"
+      traefik.http.services.prometheus.loadbalancer.server.port=9090
+      traefik.http.routers.prometheus.tls=true
+      traefik.http.routers.prometheus.tls.certresolver="letsencrypt"
+  become: true
+  tags: prometheus

@@ -1,0 +1,19 @@
+- name: Start the Grafana container
+  ansible.builtin.docker_container:
+    name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    env:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    restart_policy: always
+    state: started
+    labels: traefik.enable="true"
+      traefik.http.routers.grafana.rule="Host(`grafana.{{ domain_name }}`)"
+      traefik.http.routers.grafana.entrypoints="secure"
+      traefik.http.services.grafana.loadbalancer.server.port=3000
+      traefik.http.routers.grafana.tls=true
+      traefik.http.routers.grafana.tls.certresolver="letsencrypt"
+  become: true
+  tags: grafana
