@@ -48,3 +48,9 @@
     source: pull
   loop: "{{ docker_images }}"
   become: true
+
+- name: create a network
+  ansible.builtin.docker_network:
+    name: "{{ docker_network }}"
+    state: present
+  become: true

@@ -8,6 +8,8 @@
       - "3306:3306"
     volumes:
       - "/{{ volume_names[0] }}:/var/lib/mysql"
+    networks:
+      - name: "{{ docker_network }}"
     state: started
     restart_policy: always
   become: true

@@ -4,6 +4,8 @@
     image: nextcloud
     volumes:
       - "/{{ volume_names[1] }}:/var/www/html"
+    networks:
+      - name: "{{ docker_network }}"
     env:
       MYSQL_HOST: MariaDB
       MYSQL_DATABASE: "{{ mariadb_names[0] }}"
