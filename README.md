@@ -2,6 +2,10 @@
 
 ## Démarrage :
 
+Se connecter sur [Vault](https://vault.edu.forestier.re/) et récupérer le token puis executer `./make_secret.sh` pour créer les fichiers avec les secrets permettant l'execution du terraform et playbook ansible.
+
+Puis :
+
 Dans `./terraform` :
 
 ```bash
