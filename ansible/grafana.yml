@@ -7,6 +7,8 @@
     env:
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: admin
+    networks:
+      - name: "{{ docker_networks[1] }}"
     restart_policy: always
     state: started
     labels: traefik.enable="true"

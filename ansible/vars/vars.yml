@@ -17,6 +17,7 @@ docker_images:
   - "wordpress:latest"
   - "grafana/grafana:latest"
   - "quay.io/prometheus/node-exporter:latest"
+  - "prom/prometheus:latest"
 
 mariadb_root_password: "root"
 
@@ -33,4 +34,6 @@ mariadb_names:
 
 domain_name: "eliaz.uca-devops.ovh"
 
-docker_network: "maria-net"
+docker_networks:
+  - "maria-net"
+  - "traefik-net"
