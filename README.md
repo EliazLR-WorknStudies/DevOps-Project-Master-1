@@ -2,6 +2,9 @@
 
 ## English 🇬🇧
 
+### About this project : 
+This project was my first time working with a typical DevOps tech stack (Ansible, Terraform, etc.). It scored me a grade of 19.5/20, the best grade in my cohort. While it cannot be executed anymore since the servers used do not exist anymore, it's structure is still useful.
+
 ### Getting started :
 
 Connect to [Vault](https://vault.edu.forestier.re/) and retrieve the token, then execute ./make_secret.sh to create the files with the secrets necessary for running Terraform and the Ansible playbook.
